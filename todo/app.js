@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Platform, ListView, Keyboard} from "react-native";
+import { View, Text, StyleSheet, Platform, ListView, Keyboard, AsyncStorage} from "react-native";
 import Header from "./header";
 import Footer from "./footer";
 import Row from "./row";
@@ -28,13 +28,31 @@ class App extends Component {
     this.setSource = this.setSource.bind(this);
     this.handleAddItem = this.handleAddItem.bind(this);
     this.handleToggleAllComplete = this.handleToggleAllComplete.bind(this);
+    this.handleClearComplete = this.handleClearComplete.bind(this);
   }
+
+  componentWillMount() {
+    AsyncStorage.getItem("items").then((json) => {
+      try {
+        const items = JSON.parse(json);
+        this.setSource(items, items);
+      } catch(e){
+
+      }
+    })
+  }
+
   setSource(items, itemsDatasource, otherState={}){
     this.setState({
       items,
       dataSource: this.state.dataSource.cloneWithRows(itemsDatasource),
       ...otherState
     })
+    AsyncStorage.setItem("items", JSON.stringify(items));
+  }
+  handleClearComplete() {
+    const newItems = filterItems("ACTIVE", this.state.items);
+    this.setSource(newItems, filterItems(this.state.filter, newItems));
   }
   handleFilter(filter) {
     this.setSource(this.state.items, filterItems(filter, this.state.items), {filter})
@@ -119,6 +137,7 @@ class App extends Component {
             count={filterItems("ACTIVE", this.state.items).length}
             onFilter = {this.handleFilter}
             filter={this.state.filter}
+            onClearComplete={this.handleClearComplete}
           />
         </View>
       );
