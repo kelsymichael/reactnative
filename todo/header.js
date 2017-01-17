@@ -5,8 +5,8 @@ class Header extends Component {
   render(){
     return (
         <View style={styles.header}>
-          <TouchableOpacity>
-            <Text>{String.fromCharCode(10003)}</Text>
+          <TouchableOpacity onPress={this.props.onToggleAllComplete}>
+            <Text style={styles.toggleIcon}>{String.fromCharCode(10003)}</Text>
           </TouchableOpacity>
           <TextInput 
             value={this.props.value}
@@ -28,6 +28,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+  },
+  toggleIcon:{
+    fontSize: 30,
+    marginRight: 16,
+    color: "#CCC"
   },
   input: {
     flex: 1,
