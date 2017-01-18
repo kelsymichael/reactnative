@@ -1,11 +1,9 @@
-# reactnative
-Quick setup of reactnative - eggheadio
-
+# reactnative todo app
+// started from egghead.io tutorial
 ---
 Launching the simulator
 
-- cd into app directory
-* `react-native run-ios`
-or
-* `open ios/nameOfDirectory.xcodeproj/`
+* cd/appDirectory
+* `react-native run-ios` launches simulator
+* `open ios/nameOfDirectory.xcodeproj/` opens up xcode
 		
