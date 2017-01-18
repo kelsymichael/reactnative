@@ -1,5 +1,7 @@
 # reactnative todo app
+
 // started from egghead.io tutorial
+
 ---
 Launching the simulator
 
